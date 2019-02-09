@@ -1,0 +1,18 @@
+{
+  "retrieveDataTest": [{
+    "Key1": "Value1",
+    "Key2": "Value2"
+  }],
+
+  "MultipleJsonContentsTest": [
+    {
+      "Key1": "MultiValue1",
+      "Key2": "MultiValue2"
+    }],
+  "retrieveCustomColumnDataTest": {
+    "CustomColumn": [{
+      "Key1": "CustomValue1",
+      "Key2": "CustomValue2"
+    }]
+  }
+}

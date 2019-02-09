@@ -12,12 +12,16 @@ import java.util.Properties;
  */
 public class EnvironmentConfiguration {
 
+    public static String getPropertyValue(String key) {
+        return getPropertiesValue(key);
+    }
+
     /**
      * <b>Description:</b> Retrieves an environment config value from the given key.
      * @param key
      * @return
      */
-    public static String getValue(String key) {
+    public static String getEnvironmentConfigValue(String key) {
         JSONObject json = getConfigurations();
         return json.getString(key);
     }
@@ -49,7 +53,7 @@ public class EnvironmentConfiguration {
      * @return
      */
     private static String getPropertiesValue(String propertyKey) {
-        String env = "";
+        String value = "";
         Properties prop = new Properties();
         InputStream input = null;
 
@@ -60,7 +64,7 @@ public class EnvironmentConfiguration {
             // load the file
             prop.load(input);
 
-            env = prop.getProperty(propertyKey);
+            value = prop.getProperty(propertyKey);
         } catch (Exception e) {
             Assert.fail(String.format("Error while trying to retrieve '%1s' from '%2s'.", propertyKey, "config.properties"));
         } finally {
@@ -73,6 +77,6 @@ public class EnvironmentConfiguration {
             }
         }
 
-        return env;
+        return value;
     }
 }
