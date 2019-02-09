@@ -18,7 +18,7 @@ public class EnvironmentConfigurationTests {
 
     @Test
     public void getValueTest() {
-        String password = EnvironmentConfiguration.getValue("password");
+        String password = EnvironmentConfiguration.getEnvironmentConfigValue("password");
         Assert.assertEquals("is awesome", password, "The config values didn't match.");
     }
 }
