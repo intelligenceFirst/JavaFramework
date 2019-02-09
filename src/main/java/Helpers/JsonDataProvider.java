@@ -42,13 +42,13 @@ public class JsonDataProvider {
     }
 
     /**
-     * <b>Description:</b> Retrieves the test data from the data provider with the given test class and test name path. The test name path should be the name
-     * of the test first and then the name of the custom column.
+     * <b>Description:</b> Retrieves the test data from the data provider with the given test class, test name, and custom column name.
      * @param testClass
-     * @param testNamePath
+     * @param testName
+     * @param customColumnName
      * @return
      */
-    public static JSONObject getTestData(String testClass, String... testNamePath) {
+    public static JSONObject getTestData(String testClass, String testName, String customColumnName) {
         JSONObject json = null;
         String filePath = "";
 
@@ -62,15 +62,20 @@ public class JsonDataProvider {
             // converting the contents to json object
             json = new JSONObject(contents);
 
-            for (int x = 0; x < testNamePath.length; x++) {
-                if (json.get(testNamePath[x]).getClass().toString().toLowerCase().contains("array")) {
-                    json = json.getJSONArray(testNamePath[x]).getJSONObject(0);
-                } else {
-                    json = json.getJSONObject(testNamePath[x]);
-                }
+            if (json.get(testName).getClass().toString().toLowerCase().contains("array")) {
+                json = json.getJSONArray(testName).getJSONObject(0);
+            } else {
+                json = json.getJSONObject(testName);
             }
+
+            if (json.get(customColumnName).getClass().toString().toLowerCase().contains("array")) {
+                json = json.getJSONArray(customColumnName).getJSONObject(0);
+            } else {
+                json = json.getJSONObject(customColumnName);
+            }
+
         } catch (Exception e) {
-            Assert.fail(String.format("Error retrieving test data for test '%s1' in data provider '%s1'.", testNamePath[0], testClass + "_Data.json"));
+            Assert.fail(String.format("Error retrieving test data for test '%s1' in data provider '%s2' and custom column '%s3'.", testName, testClass + "_Data.json", customColumnName));
         }
 
         return json;
