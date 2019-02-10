@@ -11,6 +11,11 @@ import java.nio.file.Paths;
  */
 public class FileHelper {
 
+    /**
+     * <b>Description:</b> Retrieves the contents of a file as a string. Retrieves the contents based off of the given file path.
+     * @param filePath
+     * @return
+     */
     public static String retrieveFileContents(String filePath) {
         String path = System.getProperty("user.dir") + "\\" + filePath;
         String fileContents = "";
@@ -24,6 +29,12 @@ public class FileHelper {
         return fileContents;
     }
 
+    /**
+     * <b>Description:</b> Retrieves the contents of a file as a string. Retrieves the contents based off of the given file name and then the list of folders.
+     * @param fileName
+     * @param folders
+     * @return
+     */
     public static String retrieveFileContents(String fileName, String... folders) {
         String path = System.getProperty("user.dir") + "\\";
         String fileContents = "";

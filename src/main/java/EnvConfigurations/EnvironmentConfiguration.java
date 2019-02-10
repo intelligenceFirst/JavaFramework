@@ -12,6 +12,11 @@ import java.util.Properties;
  */
 public class EnvironmentConfiguration {
 
+    /**
+     * <b>Description:</b> Retrieves a config.properties value based off the given key.
+     * @param key
+     * @return
+     */
     public static String getPropertyValue(String key) {
         return getPropertiesValue(key);
     }
