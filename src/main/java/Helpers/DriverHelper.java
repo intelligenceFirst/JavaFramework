@@ -2,6 +2,7 @@ package Helpers;
 
 import EnvConfigurations.EnvironmentConfiguration;
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -20,6 +21,10 @@ import java.net.URL;
  */
 public class DriverHelper {
 
+    /**
+     * <b>Description:</b> Initializes webdriver. The webdriver that gets initialized based on what the value of "browser" is in the config.properties file.
+     * @return
+     */
     public WebDriver initializeWebDriver() {
         WebDriver driver = null;
 
@@ -56,6 +61,10 @@ public class DriverHelper {
                     //TODO: add log message here
                     break;
                 case "h":
+                    System.setProperty("webdriver.chrome.driver", getDriver(browser).getAbsolutePath());
+                    ChromeOptions hcOptions = new ChromeOptions();
+                    hcOptions.addArguments("--headless");
+                    driver = new ChromeDriver(hcOptions);
                     //TODO: add log message here
                     break;
                 default:
@@ -63,7 +72,7 @@ public class DriverHelper {
                     break;
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Assert.fail("Error trying to initialize the driver. " + e.getMessage());
         }
 
         return driver;
@@ -92,8 +101,8 @@ public class DriverHelper {
                 driver = getFile("MicrosoftWebDriver.exe");
                 break;
             case "h":
+                driver = getFile("chromedriver.exe");
                 break;
-
             default:
                 break;
         }
@@ -101,6 +110,12 @@ public class DriverHelper {
         return driver;
     }
 
+    /**
+     * <b>Description:</b> Creates a directory called "drivers" if it doesn't exist and then creates a new webdriver executable in that directory if it doesn't exist.
+     * @param driverExecutable
+     * @return
+     * @throws IOException
+     */
     private File getFile(String driverExecutable) throws IOException {
         File driverFile;
         ClassLoader classLoader = getClass().getClassLoader();
