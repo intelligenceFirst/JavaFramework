@@ -4,8 +4,8 @@
     "appenders": {
       "RollingFile": {
         "name":"File",
-        "fileName":"C:/Users/james/Desktop/logs/testlog-${date:yyyyMMdd_hhmmss}.log",
-        "filePattern":"C:/Users/james/Desktop/logs/testlog-${date:yyyyMMdd_hhmmss}.log",
+        "fileName":"./target/logs/testlog-${date:yyyyMMdd_hhmmss}.log",
+        "filePattern":"./target/logs/testlog-${date:yyyyMMdd_hhmmss}.log",
         "PatternLayout": {
           "pattern":"%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n"
         },
