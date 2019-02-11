@@ -2,6 +2,7 @@ package UnitTests;
 
 import Helpers.DriverHelper;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -13,5 +14,9 @@ public class DriverHelperTests {
     public void chromeDriverTest() {
         DriverHelper helper = new DriverHelper();
         WebDriver driver = helper.initializeWebDriver();
+        driver.navigate().to("http://google.com");
+        String title = driver.getTitle();
+        driver.close();
+        Assert.assertEquals("Google", title, "Page title doesn't match.");
     }
 }
