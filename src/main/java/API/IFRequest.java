@@ -1,5 +1,6 @@
 package API;
 
+import Logging.IFLogger;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -17,6 +18,7 @@ import java.io.StringReader;
 public class IFRequest extends Unirest {
 
     private String _endpoint;
+    private IFLogger _log = new IFLogger("IFRequest");
 
     public IFRequest(String endpoint) {
         _endpoint = endpoint;
@@ -32,7 +34,8 @@ public class IFRequest extends Unirest {
         try {
             response = Unirest.post(_endpoint).asString();
         } catch (UnirestException e) {
-            //TODO: add log message here
+            _log.error(String.format("Error thrown in executePostAndGetString. Exception: %s", e.getMessage()));
+            //TODO: Assert.fail???
         }
 
         return response;
@@ -48,7 +51,8 @@ public class IFRequest extends Unirest {
         try {
             response = Unirest.post(_endpoint).asJson();
         } catch (UnirestException e) {
-            //TODO: add log message here
+            _log.error(String.format("Error thrown in executePostAndGetJson. Exception: %s", e.getMessage()));
+            //TODO: Assert.fail???
         }
 
         return response;
@@ -69,9 +73,11 @@ public class IFRequest extends Unirest {
             InputSource is = new InputSource(new StringReader(stringResponse));
             response = builder.parse(is);
         } catch (UnirestException e) {
-            //TODO: add log message here
+            _log.error(String.format("Unirest has thrown an exception executePostAndGetXml. Exception: %s", e.getMessage()));
+            //TODO: Assert.fail???
         } catch (Exception e) {
-            //TODO: add log message here
+            _log.error(String.format("Error thrown in executePostAndGetXml. Exception: %s", e.getMessage()));
+            //TODO: Assert.fail???
         }
 
         return response;
