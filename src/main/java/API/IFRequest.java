@@ -5,6 +5,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import org.junit.Assert;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -34,8 +35,8 @@ public class IFRequest extends Unirest {
         try {
             response = Unirest.post(_endpoint).asString();
         } catch (UnirestException e) {
-            _log.error(String.format("Error thrown in executePostAndGetString. Exception: %s", e.getMessage()));
-            //TODO: Assert.fail???
+            _log.error("Error thrown in executePostAndGetString. Exception: " + e.getMessage());
+            Assert.fail("Error occurred in executePostAndGetString. Exception: " + e.getMessage());
         }
 
         return response;
@@ -51,8 +52,8 @@ public class IFRequest extends Unirest {
         try {
             response = Unirest.post(_endpoint).asJson();
         } catch (UnirestException e) {
-            _log.error(String.format("Error thrown in executePostAndGetJson. Exception: %s", e.getMessage()));
-            //TODO: Assert.fail???
+            _log.error("Error thrown in executePostAndGetJson. Exception: " + e.getMessage());
+            Assert.fail("Error occurred in executePostAndGetJson. Exception: " + e.getMessage());
         }
 
         return response;
@@ -73,11 +74,11 @@ public class IFRequest extends Unirest {
             InputSource is = new InputSource(new StringReader(stringResponse));
             response = builder.parse(is);
         } catch (UnirestException e) {
-            _log.error(String.format("Unirest has thrown an exception executePostAndGetXml. Exception: %s", e.getMessage()));
-            //TODO: Assert.fail???
+            _log.error("Unirest has thrown an exception executePostAndGetXml. Exception: " + e.getMessage());
+            Assert.fail("Unirest has thrown an error in executePostAndGetXml. Exception: " + e.getMessage());
         } catch (Exception e) {
-            _log.error(String.format("Error thrown in executePostAndGetXml. Exception: %s", e.getMessage()));
-            //TODO: Assert.fail???
+            _log.error("Error thrown in executePostAndGetXml. Exception: " + e.getMessage());
+            Assert.fail("Error occurred in executePostAndGetXml. Exception: " + e.getMessage());
         }
 
         return response;

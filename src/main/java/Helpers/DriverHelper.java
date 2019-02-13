@@ -1,6 +1,7 @@
 package Helpers;
 
 import EnvConfigurations.EnvironmentConfiguration;
+import Logging.IFLogger;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,8 @@ import java.net.URL;
  */
 public class DriverHelper {
 
+    private IFLogger _log = new IFLogger("DriverHelper");
+
     /**
      * <b>Description:</b> Initializes webdriver. The webdriver that gets initialized based on what the value of "browser" is in the config.properties file.
      * @return
@@ -33,18 +36,18 @@ public class DriverHelper {
 
             switch (browser.toLowerCase()) {
                 case "c":
-                    //TODO: add log message here
+                    _log.debug("Attempting to initialize chrome driver");
                     System.setProperty("webdriver.chrome.driver", getDriver(browser).getAbsolutePath());
                     ChromeOptions cOptions = new ChromeOptions();
                     cOptions.addArguments("--start-maximized");
                     driver = new ChromeDriver(cOptions);
-                    //TODO: add log message here
+                    _log.debug("Successfully initialized chrome driver");
                     break;
                 case "f":
                     System.setProperty("webdriver.gecko.driver", getDriver(browser).getAbsolutePath());
                     FirefoxOptions fOptions = new FirefoxOptions();
                     driver = new FirefoxDriver(fOptions);
-                    //TODO: add log message here
+                    _log.debug("Successfully initialized firefox driver");
                     break;
                 case "ie":
                     System.setProperty("webdriver.ie.driver", getDriver(browser).getAbsolutePath());
@@ -53,19 +56,19 @@ public class DriverHelper {
                     ieOptions.introduceFlakinessByIgnoringSecurityDomains();
                     ieOptions.destructivelyEnsureCleanSession();
                     driver = new InternetExplorerDriver();
-                    //TODO: add log message here
+                    _log.debug("Successfully initialized IE driver");
                     break;
                 case "e":
                     System.setProperty("webdriver.edge.driver", getDriver(browser).getAbsolutePath());
                     driver = new EdgeDriver();
-                    //TODO: add log message here
+                    _log.debug("Successfully initialized edge driver");
                     break;
                 case "h":
                     System.setProperty("webdriver.chrome.driver", getDriver(browser).getAbsolutePath());
                     ChromeOptions hcOptions = new ChromeOptions();
                     hcOptions.addArguments("--headless");
                     driver = new ChromeDriver(hcOptions);
-                    //TODO: add log message here
+                    _log.debug("Successfully initialized chrome headless driver");
                     break;
                 default:
                     //TODO: add log message here
